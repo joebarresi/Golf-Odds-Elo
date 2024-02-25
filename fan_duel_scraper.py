@@ -57,9 +57,8 @@ def get_fanduel_odds():
 
 def main():
     odds = get_fanduel_odds()
-    print(odds)
 
-main()
+
 
 
 

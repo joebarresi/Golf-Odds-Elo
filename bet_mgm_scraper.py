@@ -108,4 +108,5 @@ def get_mgm_odds():
                     market_df.loc[len(market_df)] = new_row
                 market_odds.append((tournament_name, market_df))
 
+    return market_odds
 
