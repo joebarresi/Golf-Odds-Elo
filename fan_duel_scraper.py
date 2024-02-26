@@ -1,6 +1,8 @@
 import json
 import pandas as pd
 import requests
+import current_pga_event
+from difflib import SequenceMatcher
 
 def get_fanduel_odds():
     headers = {
@@ -28,6 +30,8 @@ def get_fanduel_odds():
 
     response = requests.get('https://sbapi.md.sportsbook.fanduel.com/api/content-managed-page', params=params, headers=headers).json()
 
+    current_event = current_pga_event.get_current_pga_event()
+
 
     # Shrinks Json into only attachements key
     odds = response['attachments']
@@ -38,19 +42,24 @@ def get_fanduel_odds():
     # to the list with each player and their odds
     for element in odds['markets']:
         if(odds['markets'][element]['marketName'] == 'Win Only'):
-            market_df = pd.DataFrame(columns = ['Name', 'Odds'])
-            for runner in odds['markets'][element]['runners']:
-                # Adds next competitor to current dataframe
-                new_row = {'Name': runner['runnerName'], "Odds" : runner['winRunnerOdds']['americanDisplayOdds']['americanOdds']}
-                market_df.loc[len(market_df)] = new_row
 
-            # Appends new market to market list 
-            # Gets name by searching events key with given ID
+            # FINDS CURRENT EVENT AND CREATES DF FOR CURRENT PGA EVENT
             event_id = odds['markets'][element]['eventId']
-            market_odds.append((odds['events'][str(event_id)]['name'], market_df))
+            event_name = odds['events'][str(event_id)]['name']
+            event_comparison = SequenceMatcher(None, current_event, event_name)
+            if event_comparison.ratio() > .5:
+                market_df = pd.DataFrame(columns = ['Name', 'Odds'])
+                for runner in odds['markets'][element]['runners']:
+                    # Adds next competitor to current dataframe
+                    new_row = {'Name': runner['runnerName'], "Odds" : runner['winRunnerOdds']['americanDisplayOdds']['americanOdds']}
+                    market_df.loc[len(market_df)] = new_row
 
 
-    return market_odds
+                # Returns DF for current event only
+                return market_df
+
+
+    return None
         
     
     

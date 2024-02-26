@@ -1,7 +1,10 @@
 import requests
 import pandas as pd
 import json
+from difflib import SequenceMatcher
 
+
+# ESPN BOOK CHANGES REQUEST FOR NEW EVENT, HAVE TO FIND ANOTHER REQUEST CHANNEL TO WORK THIS
 def get_espn_odds():
 
     cookies = {
@@ -54,9 +57,11 @@ def get_espn_odds():
         headers=headers,
         json=json_data,
     ).json()
+    print(response)
 
     # Cleans Data to only have the odds of all available events
     odds = response['data']['node']['sectionChildren']
+    print(odds)
 
     # List of tuple to contain Market Name and odds associated with each player
     market_odds = []

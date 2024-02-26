@@ -1,6 +1,9 @@
 import requests
 import pandas as pd
 import json
+import current_pga_event
+from difflib import SequenceMatcher
+
 
 def get_mgm_odds():
 
@@ -92,21 +95,25 @@ def get_mgm_odds():
         headers=headers,
     ).json()
 
-    # List of tuple to contain Market Name and odds associated with each player
-    market_odds = []
+    current_event = current_pga_event.get_current_pga_event()
 
     # Iterates thruogh all tournaments to bet on
     for fixture in response['fixtures']:
         tournament_name = fixture['name']['value']
-        # Iterates through all betting props for that game
-        for game in fixture['games']:
-            if game['name']['value'] == "Tournament Winner":
-                # Append all players and their respective odds to dataframe
-                market_df = pd.DataFrame(columns = ['Name', 'Odds'])
-                for player in game['results']:
-                    new_row = {'Name': player['name']['value'], 'Odds': player['americanOdds']}
-                    market_df.loc[len(market_df)] = new_row
-                market_odds.append((tournament_name, market_df))
+        event_comparison = SequenceMatcher(None, current_event, tournament_name)
+        if event_comparison.ratio() > .5:
 
-    return market_odds
+            # Iterates through all betting props for that game
+            for game in fixture['games']:
+                if game['name']['value'] == "Tournament Winner":
+                    # Append all players and their respective odds to dataframe
+                    market_df = pd.DataFrame(columns = ['Name', 'Odds'])
+                    for player in game['results']:
+                        new_row = {'Name': player['name']['value'], 'Odds': player['americanOdds']}
+                        market_df.loc[len(market_df)] = new_row
+                    
+
+                    return market_df
+                
+    return None
 
