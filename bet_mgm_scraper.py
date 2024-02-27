@@ -109,7 +109,7 @@ def get_mgm_odds():
                     # Append all players and their respective odds to dataframe
                     market_df = pd.DataFrame(columns = ['Name', 'Odds'])
                     for player in game['results']:
-                        new_row = {'Name': player['name']['value'], 'Odds': player['americanOdds']}
+                        new_row = {'Name': player['name']['value'], 'Odds': int(player['americanOdds'])}
                         market_df.loc[len(market_df)] = new_row
                     
 

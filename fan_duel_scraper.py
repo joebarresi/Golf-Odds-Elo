@@ -51,7 +51,7 @@ def get_fanduel_odds():
                 market_df = pd.DataFrame(columns = ['Name', 'Odds'])
                 for runner in odds['markets'][element]['runners']:
                     # Adds next competitor to current dataframe
-                    new_row = {'Name': runner['runnerName'], "Odds" : runner['winRunnerOdds']['americanDisplayOdds']['americanOdds']}
+                    new_row = {'Name': runner['runnerName'], "Odds" : int(runner['winRunnerOdds']['americanDisplayOdds']['americanOdds'])}
                     market_df.loc[len(market_df)] = new_row
 
 
@@ -61,11 +61,7 @@ def get_fanduel_odds():
 
     return None
         
-    
-    
 
-def main():
-    odds = get_fanduel_odds()
 
 
 
