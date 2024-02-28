@@ -25,7 +25,6 @@ def get_minimum_odds(odds_list, book_order):
     best_odd_df = best_odd_df.sort_values(by = best_odd_df.columns[1])
     best_odd_df = best_odd_df.reset_index(drop=True)
 
-    print(best_odd_df)
     return best_odd_df
 
 
