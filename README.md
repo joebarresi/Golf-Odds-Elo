@@ -17,7 +17,7 @@ sudo service nginx restart
 cd <repository-name>
 python3 -m uvicorn main:app
 ```
-
+Leave by typing ctrl-B, then D
 
 Biggest TODOs:
 - Optimize/Refactor Weils code to be as efficent as possible
