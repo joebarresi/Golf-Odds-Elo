@@ -25,7 +25,7 @@ def get_minimum_odds(event_name):
     best_odd_df = best_odd_df.sort_values(by = best_odd_df.columns[1])
     best_odd_df = best_odd_df.reset_index(drop=True)
 
-    return best_odd_df.to_dict(orient='records')
+    return best_odd_df.to_json(orient='records')
 
 def get_list_of_odds(event):
     # Grabbing Odds of Supported Books
