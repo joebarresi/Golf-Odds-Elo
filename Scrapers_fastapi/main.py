@@ -35,7 +35,7 @@ async def root():
 async def best_pga_odds():
     data = gmo.get_minimum_odds(EVENT)
     obj = {"info": data}
-    return data
+    return obj
 
 client = TestClient(app)
 
