@@ -33,9 +33,12 @@ async def root():
 
 @app.get("/get-pga-best-odds")
 async def best_pga_odds():
-    return JSONResponse(content=gmo.get_minimum_odds(EVENT))
+    data = gmo.get_minimum_odds(EVENT)
+    print(type(data))
+    print(data)
+    return JSONResponse(content=data)
 
 client = TestClient(app)
 
 def test_odds():
-    print(client.get("/get-pga-best-odds").json())
+    client.get("/get-pga-best-odds").json()
