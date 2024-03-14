@@ -1,12 +1,13 @@
 from typing import Literal, Optional
 from uuid import uuid4
 from fastapi import FastAPI, HTTPException
-import random
 from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from mangum import Mangum
 import get_minimum_odds as gmo
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.testclient import TestClient
 
 app = FastAPI()
 handler = Mangum(app)
@@ -32,4 +33,9 @@ async def root():
 
 @app.get("/get-pga-best-odds")
 async def best_pga_odds():
-    return gmo.get_minimum_odds(EVENT)
+    return JSONResponse(content=gmo.get_minimum_odds(EVENT))
+
+client = TestClient(app)
+
+def test_odds():
+    print(client.get("/get-pga-best-odds").json())
