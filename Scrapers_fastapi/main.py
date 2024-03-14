@@ -34,6 +34,7 @@ async def root():
 @app.get("/get-pga-best-odds")
 async def best_pga_odds():
     data = gmo.get_minimum_odds(EVENT)
+    print(type(data))
     obj = {"info": data}
     return obj
 
