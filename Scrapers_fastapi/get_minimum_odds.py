@@ -4,6 +4,7 @@ import bet_mgm_scraper as mg
 import pandas as pd
 import functools as ft
 
+
 # This function takes all the lines from the given books
 # Currently pretty slow
 def get_minimum_odds(event_name):
@@ -68,7 +69,4 @@ def get_list_of_odds(event):
 
 
         
-
-
-
-
+    
