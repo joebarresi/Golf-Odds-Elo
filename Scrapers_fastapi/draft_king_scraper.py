@@ -23,8 +23,9 @@ def get_draftkings_odds(event_name):
     for node in tags_outright:
         outright_odds.append(int(''.join(node.findAll(text=True))))
 
+
     draftkings_odds = pandas.DataFrame(
-        {'Players': players,
+        {'Players': players[:len(outright_odds)],
         'Odds': outright_odds
         })
 

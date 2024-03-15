@@ -20,6 +20,15 @@ python3 -m uvicorn main:app
 Leave by typing ctrl-B, then D
 
 Biggest TODOs:
+Front End
+- Begin work on a simple react file that will just call our python server
+- Simple navbar and title page
+- deploy simple code
+- implied probability next to player
+- 
+
+Backend/API
+- Have API call for books that are working/not working
 - Optimize/Refactor Weils code to be as efficent as possible
 - Start working on back-end node file that can: create scheduling of API calls and begin storing these odds into a dynamodb
-- Begin work on a simple react file that will just call our python server
+
