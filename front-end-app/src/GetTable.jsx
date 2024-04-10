@@ -26,6 +26,7 @@ function GetTable() {
     useEffect(() => {
         fetchTable(URL);
     }, [])
+   //const table = require("./test.json")
 
     return (
         <table class="styled-table">
@@ -36,6 +37,9 @@ function GetTable() {
            </th>
            <th>
               <div>Odds</div>
+           </th>
+           <th>
+              <div>Implied Probability</div>
            </th>
            <th>
               <div>Sportsbook</div>
@@ -241,6 +245,11 @@ function GetTable() {
            <td>
                 <div class="cell_styles-module--linkInner--2MNnD">
                 <div>{entry.Odds}</div>
+                </div>
+           </td>
+           <td>
+                <div class="cell_styles-module--linkInner--2MNnD">
+                <div>{(entry.Odds > 0 ? (100/(entry.Odds + 100)*100) : entry.Odds/(entry.Odds+100)*100).toFixed(2) + '%'}</div>
                 </div>
            </td>
            <td>

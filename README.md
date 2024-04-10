@@ -24,7 +24,6 @@ Front End
 - Begin work on a simple react file that will just call our python server
 - Simple navbar and title page
 - deploy simple code
-- implied probability next to player
 - 
 
 Backend/API
